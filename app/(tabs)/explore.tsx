@@ -17,10 +17,10 @@ export default function TabTwoScreen() {
       }
     >
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Explore</ThemedText>
+        <ThemedText type="title">App Info</ThemedText>
       </ThemedView>
       <ThemedText>
-        This app includes example code to help you get started.
+        This section explores the development tool and components of building that Census App..
       </ThemedText>
       <Collapsible title="File-based routing">
         <ThemedText>

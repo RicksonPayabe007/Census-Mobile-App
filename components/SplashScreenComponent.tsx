@@ -42,7 +42,7 @@ const SplashScreenComponent = () => {
       {/* Animated Text with Emojis */}
       <Animated.View style={animatedStyle}>
         <Text style={styles.emoji}>🚀</Text>
-        <Text style={styles.text}>Welcome to PNG's One and Only</Text>
+        <Text style={styles.text}>Welcome to PNG National Population Cencus</Text>
         <Text style={styles.emoji}>✨🎉</Text>
       </Animated.View>
     </View>
@@ -53,7 +53,7 @@ const SplashScreenComponent = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#4CAF50", // Green background color for a modern splash
+    backgroundColor: "#F1C5AE", // Green background color for a modern splash
     justifyContent: "center",
     alignItems: "center",
   },

@@ -4,16 +4,42 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  Alert, // Import Alert
 } from "react-native";
 import React, { useState } from "react";
+import { useNavigation } from "expo-router";
 
 const AuthComponent = () => {
+  const navigation = useNavigation(); // Hook for navigation
+
+  // State to track form data
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  
   // State to track which form is displayed (Sign In or Sign Up)
   const [isSignIn, setIsSignIn] = useState(true);
 
   // Switch between Sign In and Sign Up form
   const toggleForm = () => {
     setIsSignIn(!isSignIn);
+  };
+
+  const handleSignIn = () => {
+    // Validation check for empty fields
+    if (!email || !password || (!isSignIn && !confirmPassword)) {
+      Alert.alert("Missing Information", "Please confirm your password.");
+      return;
+    }
+    
+    // Check if passwords match in the Sign Up form
+    if (!isSignIn && password !== confirmPassword) {
+      Alert.alert("Password Mismatch", "Passwords do not match. Please try again.");
+      return;
+    }
+
+    // Navigate to the next screen if validation passes
+    (navigation as any).navigate("IndicativeInfo");
   };
 
   return (
@@ -30,28 +56,33 @@ const AuthComponent = () => {
         keyboardType="email-address"
         autoCapitalize="none"
         placeholderTextColor="#888"
+        value={email}
+        onChangeText={setEmail} // Set email state
       />
       <TextInput
         style={styles.input}
         placeholder="Password"
         secureTextEntry
         placeholderTextColor="#888"
+        value={password}
+        onChangeText={setPassword} // Set password state
       />
 
+      {/* Confirm Password for Sign Up */}
       {!isSignIn && (
         <TextInput
           style={styles.input}
           placeholder="Confirm Password"
           secureTextEntry
           placeholderTextColor="#888"
+          value={confirmPassword}
+          onChangeText={setConfirmPassword} // Set confirm password state
         />
       )}
 
       {/* Action Button */}
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>
-          {isSignIn ? "Sign In" : "Sign Up"}
-        </Text>
+      <TouchableOpacity style={styles.button} onPress={handleSignIn}>
+        <Text style={styles.buttonText}>{isSignIn ? "Sign In" : "Sign Up"}</Text>
       </TouchableOpacity>
 
       {/* Toggle between forms */}
@@ -65,6 +96,7 @@ const AuthComponent = () => {
     </View>
   );
 };
+
 // Modern styling for the form
 const styles = StyleSheet.create({
   container: {
